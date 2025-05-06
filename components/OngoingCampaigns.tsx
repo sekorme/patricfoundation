@@ -70,13 +70,19 @@ const campaigns = [
 ];
 
 export default function OngoingCampaigns() {
+    const [hasMounted, setHasMounted] = useState(false);
     const [currentIndex, setCurrentIndex] = useState(0);
     const [visibleSlides, setVisibleSlides] = useState(3);
 
     useEffect(() => {
+        setHasMounted(true); // prevent SSR rendering errors
+
         const updateSlides = () => {
-            setVisibleSlides(window.innerWidth < 768 ? 1 : 3);
+            if (typeof window !== "undefined") {
+                setVisibleSlides(window.innerWidth < 768 ? 1 : 3);
+            }
         };
+
         updateSlides();
         window.addEventListener("resize", updateSlides);
         return () => window.removeEventListener("resize", updateSlides);
@@ -91,6 +97,8 @@ export default function OngoingCampaigns() {
     const prev = () => {
         setCurrentIndex((prev) => (prev <= 0 ? 0 : prev - 1));
     };
+
+    if (!hasMounted) return null;
 
     return (
         <section className="relative py-16 overflow-hidden">

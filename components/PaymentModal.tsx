@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import PaystackPop from "@paystack/inline-js";
+
 import { verifyPayment } from "@/lib/actions/verifyPayment";
 import { sendDonationReceiptEmail } from "@/providers/sendDonationReceiptEmail";
 import { addToast } from "@heroui/toast";
@@ -28,7 +28,8 @@ export default function PaymentModal() {
 
     const [loading, setLoading] = useState(false);
 
-    const handlePay = () => {
+    const handlePay = async() => {
+        const PaystackPop = (await import("@paystack/inline-js")).default;
         const paystack = new PaystackPop();
         setLoading(true);
 
