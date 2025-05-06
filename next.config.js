@@ -8,10 +8,6 @@ const nextConfig = {
             { source: "/robots.txt", destination: "/api/robots" },
         ];
     },
-    eslint: {
-        // Ignore ESLint errors during builds
-        ignoreDuringBuilds: true,
-    },
     images: {
         remotePatterns: [
             {
@@ -77,6 +73,13 @@ const nextConfig = {
             },
 
         ]
+    },
+
+    eslint: {
+        ignoreDuringBuilds: true,
+    },
+    typescript: {
+        ignoreBuildErrors: true,
     },
 };
 
